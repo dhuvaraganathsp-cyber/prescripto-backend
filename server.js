@@ -20,11 +20,12 @@ app.use(express.json())
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
-  credentials: true
-  // credentials: true is not compatible with origin: '*' in browsers.
-  // If you need cookies/auth credentials, change `origin` to a function that echoes
-  // the request origin and set `credentials: true`.
+  // Allow the custom `token` header used by the frontend and common headers.
+  // If you prefer automatic reflection of requested headers, remove this option.
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin", "token"],
+  // Note: do NOT set `credentials: true` together with `origin: '*'` — browsers will ignore it.
+  // If you need credentials (cookies/Authorization via browser credentials), switch to a
+  // specific origin or a function that returns the request origin instead of '*'.
 }))
 
 // Respond to preflight requests for all routes

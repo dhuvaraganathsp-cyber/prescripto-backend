@@ -21,6 +21,7 @@ app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
+  credentials: true
   // credentials: true is not compatible with origin: '*' in browsers.
   // If you need cookies/auth credentials, change `origin` to a function that echoes
   // the request origin and set `credentials: true`.

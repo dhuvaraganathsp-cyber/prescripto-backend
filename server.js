@@ -15,9 +15,19 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
+// Allow all origins, methods, and headers. Keep origin: '*' for permissive access
+// and explicitly handle preflight OPTIONS requests.
 app.use(cors({
-  origin : "*"
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
+  // credentials: true is not compatible with origin: '*' in browsers.
+  // If you need cookies/auth credentials, change `origin` to a function that echoes
+  // the request origin and set `credentials: true`.
 }))
+
+// Respond to preflight requests for all routes
+app.options("*", cors())
 
 // api endpoints
 app.use("/api/user", userRouter)
